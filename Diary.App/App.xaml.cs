@@ -18,7 +18,7 @@ namespace Diary.App
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : PrismApplication
+    public partial class App
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
@@ -39,7 +39,10 @@ namespace Diary.App
 
             foreach (var dir in directories)
             {
-                var dirCatalog = new DirectoryModuleCatalog() { ModulePath = $"{path}/{dir}" };
+                var moduleDir = $"{path}/{dir}";
+                if (!Directory.Exists(moduleDir))
+                    continue;
+                var dirCatalog = new DirectoryModuleCatalog() { ModulePath = moduleDir };
                 dirCatalog.Initialize();
 
                 components.AddRange(dirCatalog.Items);
