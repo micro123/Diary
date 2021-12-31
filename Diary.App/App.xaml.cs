@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using Diary.App.Views;
-using Diary.Core;
-using Prism.DryIoc;
+﻿using Diary.App.Views;
+using Diary.Core.Base;
 using Prism.Ioc;
 using Prism.Modularity;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Windows;
+using Diary.App.Database;
 
 namespace Diary.App
 {
@@ -22,7 +17,8 @@ namespace Diary.App
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IApplication>(()=>new DiaryApp());
+            containerRegistry.RegisterSingleton<IApplication>(() => new DiaryApp());
+            containerRegistry.RegisterSingleton<DiaryDbContext>(() => new DiaryDbContext());
         }
 
         protected override Window CreateShell()

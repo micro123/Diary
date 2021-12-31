@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
-namespace Diary.Core;
+namespace Diary.Core.Base;
 
 public interface IApplication
 {

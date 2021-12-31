@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Diary.App.Database;
+namespace Diary.Core.Entities;
 
 public class RedMineIssue
 {

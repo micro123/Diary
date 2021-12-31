@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Diary.Core.Base;
 using System.Collections.ObjectModel;
-using Diary.Core;
 
 namespace Diary.App;
 
-public class DiaryApp: IApplication
+public class DiaryApp : IApplication
 {
     public ObservableCollection<MenuNode> MenuNodes { get; } = new();
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace Diary.Core;
+namespace Diary.Core.Base;
 
 public struct MenuNode
 {

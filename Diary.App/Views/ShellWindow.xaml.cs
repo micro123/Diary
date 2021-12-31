@@ -1,6 +1,4 @@
-﻿using HandyControl.Controls;
-
-namespace Diary.App.Views
+﻿namespace Diary.App.Views
 {
     /// <summary>
     /// ShellWindow.xaml 的交互逻辑

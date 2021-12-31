@@ -23,6 +23,19 @@ namespace Diary.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RedMineActivities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RedMineActivities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RedMineIssues",
                 columns: table => new
                 {
@@ -78,6 +91,9 @@ namespace Diary.App.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DiaryItems");
+
+            migrationBuilder.DropTable(
+                name: "RedMineActivities");
 
             migrationBuilder.DropTable(
                 name: "ItemTypes");

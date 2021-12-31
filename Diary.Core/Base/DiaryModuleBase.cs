@@ -1,7 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 
-namespace Diary.Core
+namespace Diary.Core.Base
 {
     public abstract class DiaryModuleBase : IModule
     {

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diary.App.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    [Migration("20211231100049_Initial")]
+    [Migration("20211231131406_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,21 @@ namespace Diary.App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemTypes");
+                });
+
+            modelBuilder.Entity("Diary.App.Database.RedMineActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RedMineActivities");
                 });
 
             modelBuilder.Entity("Diary.App.Database.RedMineIssue", b =>

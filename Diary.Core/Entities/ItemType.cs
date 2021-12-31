@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Diary.App.Database;
+namespace Diary.Core.Entities;
 
 public class ItemType
 {
