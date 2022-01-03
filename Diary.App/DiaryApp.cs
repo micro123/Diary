@@ -1,19 +1,21 @@
-﻿using Diary.Core.Base;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Diary.Core.Base;
 using System.Collections.ObjectModel;
 
 namespace Diary.App;
 
 public class DiaryApp : IApplication
 {
-    public ObservableCollection<MenuNode> MenuNodes { get; } = new();
+    public ObservableCollection<AppMenuItem> MenuItems { get; } = new();
 
-    public void RegisterMenu(MenuNode? menuNode)
+    public void RegisterMenu(IEnumerable<AppMenuItem>? menuNode)
     {
-        if (menuNode.HasValue)
-            MenuNodes.Add(menuNode.Value);
+        if (menuNode != null)
+            MenuItems.AddRange(menuNode);
     }
 
-    public ObservableCollection<MenuNode> Menus => MenuNodes;
+    public ObservableCollection<AppMenuItem> Menus => MenuItems;
 
 
 }

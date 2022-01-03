@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Diary.Core.Base;
 
 public interface IApplication
 {
-    public ObservableCollection<MenuNode> Menus { get; }
-    void RegisterMenu(MenuNode? menuNode); // 向程序注册菜单项
+    public ObservableCollection<AppMenuItem> Menus { get; }
+    void RegisterMenu(IEnumerable<AppMenuItem>? menuNode); // 向程序注册菜单项
 }

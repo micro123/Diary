@@ -1,4 +1,6 @@
-﻿using Prism.Ioc;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Prism.Ioc;
 using Prism.Modularity;
 
 namespace Diary.Core.Base
@@ -6,7 +8,7 @@ namespace Diary.Core.Base
     public abstract class DiaryModuleBase : IModule
     {
         // 返回模块提供的菜单
-        public virtual MenuNode? GetMenu()
+        public virtual IEnumerable<AppMenuItem>? GetMenu()
         {
             return null;
         }

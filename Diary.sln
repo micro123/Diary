@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diary.App", "Diary.App\Diar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diary.Core", "Diary.Core\Diary.Core.csproj", "{D268BF04-E830-4A32-BB9B-4DBF95E07E53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{D6D166E3-70EA-485C-BC84-1A2B6CB63806}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D268BF04-E830-4A32-BB9B-4DBF95E07E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D268BF04-E830-4A32-BB9B-4DBF95E07E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D268BF04-E830-4A32-BB9B-4DBF95E07E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D166E3-70EA-485C-BC84-1A2B6CB63806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D166E3-70EA-485C-BC84-1A2B6CB63806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D166E3-70EA-485C-BC84-1A2B6CB63806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D166E3-70EA-485C-BC84-1A2B6CB63806}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
