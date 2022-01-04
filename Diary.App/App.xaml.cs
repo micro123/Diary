@@ -13,7 +13,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using Diary.App.Events;
 using Diary.App.Models;
+using MahApps.Metro.IconPacks;
+using Prism.Events;
 
 namespace Diary.App
 {
@@ -77,13 +80,15 @@ namespace Diary.App
                     {
                         Title = "编辑器",
                         Command = new DelegateCommand(() =>
-                            regionMng.RequestNavigate(RegionNames.AppContentRegion, "Editor"))
+                            regionMng.RequestNavigate(RegionNames.AppContentRegion, "Editor")),
+                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconMaterial(){Kind = PackIconMaterialKind.CommentEdit})
                     };
                     AppMenuItem statistics = new AppMenuItem()
                     {
                         Title = "统计工具",
                         Command = new DelegateCommand(() =>
-                            regionMng.RequestNavigate(RegionNames.AppContentRegion, "Statistics"))
+                            regionMng.RequestNavigate(RegionNames.AppContentRegion, "Statistics")),
+                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconFontisto(){Kind = PackIconFontistoKind.AreaChart})
                     };
 
                     app.RegisterMenu(new[] { editor, statistics });
@@ -105,6 +110,12 @@ namespace Diary.App
         {
             AppSettings.Store(AppSettings.GetConfig());
             base.OnExit(e);
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Container.Resolve<IEventAggregator>().GetEvent<AppStartedEvent>().Publish();
         }
     }
 }

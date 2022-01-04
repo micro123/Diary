@@ -38,6 +38,7 @@
     <Folder Include="Modules\RedMine\ViewModels\" />
     <Folder Include="Utilities\" />
     <Folder Include="Converters\" />
+    <Folder Include="Events\" />
   </ItemGroup>
 
 </Project>

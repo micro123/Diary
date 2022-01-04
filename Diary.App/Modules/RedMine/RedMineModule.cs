@@ -6,6 +6,7 @@ using Prism.Commands;
 using Prism.Ioc;
 using Prism.Regions;
 using System.Collections.Generic;
+using MahApps.Metro.IconPacks;
 
 namespace Diary.App.Modules.RedMine;
 
@@ -28,7 +29,8 @@ public class RedMineModule : DiaryModuleBase
         AppMenuItem appMenuRoot = new AppMenuItem()
         {
             Title = "RedMine 工具",
-            Command = new DelegateCommand(ShowRedMineActivitiesImportDlg)
+            Command = new DelegateCommand(ShowRedMineActivitiesImportDlg),
+            Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconSimpleIcons(){Kind = PackIconSimpleIconsKind.Redmine})
         };
         return new[] { appMenuRoot };
     }

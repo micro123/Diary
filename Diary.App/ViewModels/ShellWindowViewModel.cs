@@ -1,9 +1,12 @@
 ﻿using Diary.Core.Base;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Diary.App.Database;
+using Diary.App.Events;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Services.Dialogs;
 
 namespace Diary.App.ViewModels
@@ -19,11 +22,26 @@ namespace Diary.App.ViewModels
 
         public ObservableCollection<AppMenuItem> Menus => _application.Menus;
 
-        public ShellWindowViewModel(IApplication application, DiaryDbContext context, IDialogService dialogService)
+        private AppMenuItem _selectedItem;
+        public AppMenuItem SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+                value.Command?.Execute(null);
+            }
+        }
+
+        public ShellWindowViewModel(IApplication application,
+            DiaryDbContext context,
+            IDialogService dialogService,
+            IEventAggregator eventAggregator)
         {
             _application = application;
             _context = context;
             _dialogService = dialogService;
+            eventAggregator.GetEvent<AppStartedEvent>().Subscribe(InitViewState);
         }
 
         private ICommand? _showSettingsCommand;
@@ -32,6 +50,11 @@ namespace Diary.App.ViewModels
         private void ShowSettingsDialog()
         {
             _dialogService.ShowDialog("SettingsDialog");
+        }
+
+        public void InitViewState()
+        {
+            SelectedItem = Menus.First();
         }
     }
 }
