@@ -1,4 +1,5 @@
-﻿using Diary.App.Modules.RedMine.Views;
+﻿using System;
+using Diary.App.Modules.RedMine.Views;
 using Diary.Core.Base;
 using Diary.Core.Constant;
 using Prism.Commands;
@@ -26,7 +27,7 @@ public class RedMineModule : DiaryModuleBase
     {
         AppMenuItem appMenuRoot = new AppMenuItem()
         {
-            Title = "RedMine 设置",
+            Title = "RedMine 工具",
             Command = new DelegateCommand(ShowRedMineActivitiesImportDlg)
         };
         return new[] { appMenuRoot };
@@ -36,7 +37,7 @@ public class RedMineModule : DiaryModuleBase
     {
         var regionManager = _container.Resolve<IRegionManager>();
         if (regionManager == null)
-            return;
+            throw new NullReferenceException("No Region Manager Found!!");
 
         regionManager
             .RequestNavigate(RegionNames.AppContentRegion, "RedMineSettings");
