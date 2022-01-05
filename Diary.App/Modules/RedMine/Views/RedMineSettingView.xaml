@@ -4,9 +4,65 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Diary.App.Modules.RedMine.Views"
+             xmlns:entity="clr-namespace:Diary.Core.Entities;assembly=Diary.Core"
              mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock Text="{Binding Title}" FontSize="72" VerticalAlignment="Center" HorizontalAlignment="Center" />
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="24">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <DockPanel Margin="4" LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="RedMine活动列表："/>
+            <mah:DropDownButton Grid.Column="1" Content="点击查看可选项" ItemsSource="{Binding RedMineActivities}">
+                <mah:DropDownButton.ItemTemplate>
+                    <DataTemplate DataType="{x:Type entity:RedMineActivity}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </mah:DropDownButton.ItemTemplate>
+            </mah:DropDownButton>
+            <Button Grid.Column="2" ToolTip="与RedMine服务器同步活动枚举值" Command="{Binding SyncActivitiesCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconEvaIcons Kind="Sync" Width="16" Height="16" Margin="0 0 4 0" VerticalAlignment="Center"/>
+                    <TextBlock Text="同步" VerticalAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Separator DockPanel.Dock="Top" Height="2" Background="{DynamicResource MahApps.Brushes.Gray4}"/>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" DockPanel.Dock="Top" Text="已导入的问题列表："/>
+            <Button Grid.Column="2" ToolTip="导入新问题" Command="{Binding ImportIssueCommand}">
+                <iconPacks:PackIconMaterial Kind="Import" />
+            </Button>
+            <Button Grid.Column="3" ToolTip="删除选中问题" Command="{Binding DeleteIssueCommand}">
+                <iconPacks:PackIconUnicons Kind="Trash" />
+            </Button>
+            <Button Grid.Column="4" ToolTip="清空所有问题" Command="{Binding ClearIssuesCommand}">
+                <iconPacks:PackIconCodicons Kind="ClearAll" />
+            </Button>
+        </Grid>
+        <ListView ItemsSource="{Binding RedMineIssues}" SelectionMode="Single" SelectedItem="{Binding SelectedRedMineIssue}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type entity:RedMineIssue}">
+                    <TextBlock Text="{Binding IssueName}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
 </UserControl>

@@ -13,7 +13,7 @@ public class AppSettings
         protected bool Equals(Data other)
         {
             return RedMineHost == other.RedMineHost && RedMinePort == other.RedMinePort &&
-                   RedMineUserApi == other.RedMineUserApi;
+                   RedMineUserApiKey == other.RedMineUserApiKey;
         }
 
         public override bool Equals(object? obj)
@@ -26,14 +26,14 @@ public class AppSettings
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(RedMineHost, RedMinePort, RedMineUserApi);
+            return HashCode.Combine(RedMineHost, RedMinePort, RedMineUserApiKey);
         }
 
         #region RedMine 设置
 
         public string RedMineHost { get; set; } = "";
         public int RedMinePort { get; set; }
-        public string RedMineUserApi { get; set; } = "";
+        public string RedMineUserApiKey { get; set; } = "";
 
         #endregion
     }

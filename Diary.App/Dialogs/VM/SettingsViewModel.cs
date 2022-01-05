@@ -57,7 +57,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
         var d = AppSettings.Load();
         Host = d.RedMineHost;
         Port = d.RedMinePort;
-        _userApiKey = d.RedMineUserApi;
+        _userApiKey = d.RedMineUserApiKey;
     }
 
     private void SaveData()
@@ -66,7 +66,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
         {
             RedMineHost = Host,
             RedMinePort = Port,
-            RedMineUserApi = _userApiKey
+            RedMineUserApiKey = _userApiKey
         });
     }
 

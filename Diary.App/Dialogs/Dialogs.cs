@@ -9,5 +9,6 @@ public class Dialogs
     public static void ConfigAppDialogs(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterDialog<SettingsView, SettingsViewModel>("SettingsDialog");
+        containerRegistry.RegisterDialog<MessageView, MessageViewModel>("MessageDialog");
     }
 }

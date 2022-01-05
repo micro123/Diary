@@ -6,6 +6,7 @@ using Prism.Commands;
 using Prism.Ioc;
 using Prism.Regions;
 using System.Collections.Generic;
+using Diary.App.Modules.RedMine.Dialogs;
 using MahApps.Metro.IconPacks;
 
 namespace Diary.App.Modules.RedMine;
@@ -22,6 +23,7 @@ public class RedMineModule : DiaryModuleBase
     public override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<RedMineSettingView>("RedMineSettings");
+        containerRegistry.RegisterDialog<RedMineIssueImportView, RedMineIssueImportViewModel>("RedMineIssueImport");
     }
 
     public override IEnumerable<AppMenuItem>? GetMenu()

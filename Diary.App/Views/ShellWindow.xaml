@@ -16,6 +16,7 @@
                  TitleCharacterCasing="Normal"
                  TitleBarHeight="32"
                  xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+                 ResizeMode="CanResizeWithGrip"
                  Title="{Binding Title}" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <mah:MetroWindow.Resources>
         <coverters:AppItemToCanvasConverter x:Key="AppItemToCanvasConverter"/>
