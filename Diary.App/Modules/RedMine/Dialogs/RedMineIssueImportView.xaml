@@ -4,7 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Diary.App.Modules.RedMine.Dialogs"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="72" Text="问题导入"></TextBlock>
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="24">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="查找问题：" DockPanel.Dock="Top"/>
+        <Separator Grid.Row="1" Height="2" Foreground="{DynamicResource MahApps.Brushes.Gray4}" DockPanel.Dock="Top"/>
+        <Grid Grid.Row="2" DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="关键词搜索：" Margin="0 0 4 0"/>
+            <TextBox Grid.Column="1" Margin="0 0 4 0" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="输入关键词进行筛选" VerticalAlignment="Center" MinWidth="200"/>
+            <CheckBox Grid.Column="2" Content="仅限分派给我的问题" Margin="0 0 4 0" FontSize="20" IsChecked="{Binding FilterAssignToMe}"/>
+            <Button Grid.Column="3" Command="{Binding QueryIssuesCommand}" Padding="0" Margin="0 0 4 0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="执行查询" FontSize="14" Margin="4 0"/>
+                    <iconPacks:PackIconForkAwesome Kind="Search" Width="20" Height="20" Margin="4 0"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <DataGrid Grid.Row="3" ItemsSource="{Binding QueryResults}" SelectionMode="Extended" DockPanel.Dock="Top" FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn FontSize="14" Header="项目名称" Binding="{Binding ProjectName}" Width="140"/>
+                <DataGridTextColumn FontSize="14" Header="问题名称" Binding="{Binding IssueName}" Width="280"/>
+                <DataGridTextColumn FontSize="14" Header="问题ID" Binding="{Binding IssueId}" Width="80"/>
+                <DataGridTextColumn FontSize="14" Header="状态" Binding="{Binding IssueState}" Width="80"/>
+                <DataGridTextColumn FontSize="14" Header="创建日期" Binding="{Binding CreateDate}" Width="120"/>
+                <DataGridCheckBoxColumn Header="导入" Binding="{Binding IsChecked}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Separator Grid.Row="4" Height="2" Foreground="{DynamicResource MahApps.Brushes.Gray4}" Margin="0 2"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" >
+            <Button Width="80" Margin="4 0 4 0" Content="上一页"/>
+            <Button Width="80" Margin="4 0 4 0" Content="下一页"/>
+            <Button Width="80" Margin="4 0 4 0" Content="全选"/>
+            <Button Width="80" Margin="4 0 4 0" Content="反选"/>
+            <Button Width="80" Margin="4 0 4 0" Content="清除选中"/>
+            <Button Width="80" Margin="4 0 4 0" Content="导入所选问题"/>
+        </StackPanel>
+    </Grid>
 </UserControl>
