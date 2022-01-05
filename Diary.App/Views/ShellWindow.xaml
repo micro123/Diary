@@ -62,18 +62,23 @@
             <ListView ItemsSource="{Binding Menus}"
                       SelectedItem="{Binding SelectedItem}"
                       SelectionMode="Single"
-                      Background="Transparent"
                       BorderThickness="0"
                       Width="250">
-                <ListView.BorderBrush>
-                    <SolidColorBrush Color="White" Opacity="0"/>
-                </ListView.BorderBrush>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.Resources>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type core:AppMenuItem}">
                         <Grid Height="48">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.Style>
                                 <Style TargetType="{x:Type Grid}">

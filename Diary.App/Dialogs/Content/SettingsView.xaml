@@ -19,6 +19,7 @@
         <Grid DockPanel.Dock="Top" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -28,32 +29,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Text="服务器IP或域名：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Width="300" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     mah:TextBoxHelper.AutoWatermark="True" mah:TextBoxHelper.Watermark="例如：http://zymc"/>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="服务器端口号：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <mah:NumericUpDown Grid.Column="1" Grid.Row="1" Margin="0,5"  Value="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="RedMine用户名：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding User,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="RedMine密码：" Margin="0,0,0,10" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <PasswordBox x:Name="PasswordBox" Grid.Column="1" Grid.Row="3" Margin="0,5"
-                     VerticalContentAlignment="Center"
-                     PasswordChar="*"
-                     ToolTip="123">
-                <Behaviors:Interaction.Triggers>
-                    <Behaviors:EventTrigger EventName="PasswordChanged" SourceName="{Binding ElementName=PasswordBox}">
-                        <Behaviors:InvokeCommandAction Command="{Binding RecheckCanExecuteCommand}" CommandParameter="{Binding ElementName=PasswordBox}" />
-                    </Behaviors:EventTrigger>
-                </Behaviors:Interaction.Triggers>
-            </PasswordBox>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="RedMine API Key：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding UserApiKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="位于我的账户页面查看"/>
         </Grid>
-        <!-- 获取RedMine Cookies -->
-        <Button Margin="8" DockPanel.Dock="Top"
-                Command="{Binding UpdateRedMineCookiesCommand}"
-                CommandParameter="{Binding ElementName=PasswordBox}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <mah:ProgressRing Margin="5" Height="24" Width="24" Visibility="{Binding Updating, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBlock Margin="5"  FontSize="18" VerticalAlignment="Center" Text="更新RedMine Cookies"/>
-            </StackPanel>
-        </Button>
         <StackPanel Margin="15" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom">
             <Button Width="96" Content="还原之前的设置" Command="{Binding RestoreSettingsCommand}" Margin="4,0" />
             <Button Width="96" Content="保存并关闭" Command="{Binding SaveAndCloseCommand}" Margin="4,0" />

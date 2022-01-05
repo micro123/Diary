@@ -46,55 +46,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
 
     private ICommand? _restoreSettingsCommand;
     public ICommand RestoreSettingsCommand => _restoreSettingsCommand ??= new DelegateCommand(RestorePreviousSettings);
-
-    private ICommand? _updateRedMineCookiesCommand;
-
-    public ICommand UpdateRedMineCookiesCommand =>
-        _updateRedMineCookiesCommand ??=
-            new DelegateCommand<object>((passwordBox) => UpdateRedMineCookies(passwordBox), CanDoUpdate)
-                .ObservesProperty(() => Host)
-                .ObservesProperty(() => Port)
-                .ObservesProperty(() => User)
-                .ObservesProperty(() => Updating);
-
-    private bool CanDoUpdate(object passwordBox)
-    {
-        return !Updating && !string.IsNullOrWhiteSpace(Host) && !string.IsNullOrWhiteSpace(User) && Port is >= 0 and <= 65535;
-    }
-
-    private async Task UpdateRedMineCookies(object passwordBox)
-    {
-        Updating = true;
-        SaveData();
-        if (passwordBox is PasswordBox box)
-        {
-            var pwd = box.Password;
-            if (RedMineUtility.UpdateCookie(pwd).Result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-        Updating = false;
-    }
-
-    private ICommand? _recheckCanExecuteCommand;
-
-    public ICommand RecheckCanExecuteCommand =>
-        _recheckCanExecuteCommand ??= new DelegateCommand<object>(RecheckCanExecute);
-
-    private void RecheckCanExecute(object obj)
-    {
-        if (obj is PasswordBox passwordBox)
-        {
-            (UpdateRedMineCookiesCommand as DelegateCommand<object>)?.RaiseCanExecuteChanged();
-        }
-    }
-
+    
     private void RestorePreviousSettings()
     {
         LoadData();
@@ -105,7 +57,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
         var d = AppSettings.Load();
         Host = d.RedMineHost;
         Port = d.RedMinePort;
-        User = d.RedMineUser;
+        _userApiKey = d.RedMineUserApi;
     }
 
     private void SaveData()
@@ -114,8 +66,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
         {
             RedMineHost = Host,
             RedMinePort = Port,
-            RedMineUser = User,
-            RedMineCookies = AppSettings.GetConfig().RedMineCookies
+            RedMineUserApi = _userApiKey
         });
     }
 
@@ -134,11 +85,11 @@ public class SettingsViewModel : BindableBase, IDialogAware
         set => SetProperty(ref _port, value);
     }
 
-    private string _user = "";
-    public string User
+    private string _userApiKey = "";
+    public string UserApiKey
     {
-        get => _user;
-        set => SetProperty(ref _user, value);
+        get => _userApiKey;
+        set => SetProperty(ref _userApiKey, value);
     }
 
     private bool _updating = false;
