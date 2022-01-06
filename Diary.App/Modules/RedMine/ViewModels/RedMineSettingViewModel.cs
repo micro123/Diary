@@ -104,8 +104,13 @@ public class RedMineSettingViewModel : BindableBase
 
     public ICommand ClearIssuesCommand =>
         _clearIssuesCommand ??=
-            new DelegateCommand(ClearIssues, () => RedMineIssues.Count > 0).ObservesProperty(
+            new DelegateCommand(ClearIssues, CanExecuteClearIssues).ObservesProperty(
                 () => RedMineIssues);
+
+    private bool CanExecuteClearIssues()
+    {
+        return RedMineIssues.Count > 0;
+    }
 
     private void ClearIssues()
     {

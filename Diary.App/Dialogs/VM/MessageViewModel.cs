@@ -8,7 +8,7 @@ namespace Diary.App.Dialogs.VM;
 
 public class MessageViewModel: BindableBase, IDialogAware
 {
-    public bool CanCloseDialog() => false;
+    public bool CanCloseDialog() => true;
 
     public void OnDialogClosed()
     {
