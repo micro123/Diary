@@ -136,7 +136,7 @@ public class RedMineSettingViewModel : BindableBase
     private void SyncActivitiesFromRedMineServer()
     {
         IsSyncing = true;
-        Task.Run(async () =>
+        Task.Run(() =>
         {
             RedMineUtility.SyncActivities(_dbContext);
             IsSyncing = false;

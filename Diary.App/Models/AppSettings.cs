@@ -41,7 +41,8 @@ public class AppSettings
     public static Data Load()
     {
         var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var jsonFilePath = $@"{appDataDir}/settings.json";
+        var appName = AppDomain.CurrentDomain.FriendlyName;
+        var jsonFilePath = $@"{appDataDir}/{appName}/settings.json";
         if (File.Exists(jsonFilePath))
         {
             var jsonText = File.ReadAllText(jsonFilePath);
@@ -58,7 +59,8 @@ public class AppSettings
             _data = newData;
             var text = JsonConvert.SerializeObject(_data, Formatting.None);
             var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var jsonFilePath = $@"{appDataDir}/settings.json";
+            var appName = AppDomain.CurrentDomain.FriendlyName;
+            var jsonFilePath = $@"{appDataDir}/{appName}/settings.json";
             File.WriteAllText(jsonFilePath, text);
         }
     }

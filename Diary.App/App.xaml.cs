@@ -16,6 +16,7 @@ using System.Windows;
 using Diary.App.Events;
 using Diary.App.Models;
 using MahApps.Metro.IconPacks;
+using Microsoft.EntityFrameworkCore;
 using Prism.Events;
 
 namespace Diary.App
@@ -37,6 +38,12 @@ namespace Diary.App
 
         protected override Window CreateShell()
         {
+            // Init Database
+            var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var appName = AppDomain.CurrentDomain.FriendlyName;
+            Directory.CreateDirectory($@"{appDataDir}/{appName}");
+            Container.Resolve<DiaryDbContext>().Database.Migrate();
+
             return Container.Resolve<ShellWindow>();
         }
 
@@ -111,9 +118,14 @@ namespace Diary.App
             AppSettings.Store(AppSettings.GetConfig());
             base.OnExit(e);
         }
-
+        
         protected override void OnInitialized()
         {
+            var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var appName = AppDomain.CurrentDomain.FriendlyName;
+
+            Directory.CreateDirectory($@"{appDataDir}/{appName}");
+
             base.OnInitialized();
             Container.Resolve<IEventAggregator>().GetEvent<AppStartedEvent>().Publish();
         }
