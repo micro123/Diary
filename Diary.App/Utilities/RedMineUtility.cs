@@ -183,7 +183,7 @@ public class RedMineUtility
         if (!string.IsNullOrWhiteSpace(pattern) && !string.IsNullOrEmpty(pattern))
             url = $"{url}&subject=~{pattern}";
         if (only_me)
-            url = $"{url}&assigned_to=me";
+            url = $"{url}&assigned_to_id=me";
         var http = new RestClient();
         http.UseNewtonsoftJson();
         var res = await http.ExecuteAsync<IssueQueryResult>(

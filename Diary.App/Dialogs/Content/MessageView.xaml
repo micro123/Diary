@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill="False" Margin="20">
-        <TextBlock Text="{Binding Description}" FontSize="32" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+        <TextBlock Text="{Binding Description}" FontSize="32" HorizontalAlignment="Left" DockPanel.Dock="Top" TextWrapping="Wrap"/>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button MinWidth="80" Margin="8 0" Command="{Binding PositiveButtonCommand}" Content="{Binding PositiveButtonText}"/>
             <Button MinWidth="80" Margin="8 0" Command="{Binding NegativeButtonCommand}" Content="{Binding NegativeButtonText}"/>

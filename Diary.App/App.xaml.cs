@@ -33,6 +33,7 @@ namespace Diary.App
             containerRegistry.RegisterForNavigation<EditorView>("Editor");
             containerRegistry.RegisterForNavigation<StatisticsView>("Statistics");
             containerRegistry.RegisterDialogWindow<DialogWindow>();
+            containerRegistry.RegisterDialogWindow<MessageDialogWindow>("msg");
             Dialogs.Dialogs.ConfigAppDialogs(containerRegistry);
         }
 

@@ -8,11 +8,12 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Diary.App.Modules.RedMine.Views"
              xmlns:entity="clr-namespace:Diary.Core.Entities;assembly=Diary.Core"
+             xmlns:converter="clr-namespace:Diary.App.Converters"
              mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800" FontSize="24">
     <UserControl.Resources>
-        
+        <converter:ActivityListToTextConverter x:Key="ActivityListToTextConverter"/>
     </UserControl.Resources>
     <DockPanel Margin="4" LastChildFill="True">
         <Grid DockPanel.Dock="Top">
@@ -23,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="RedMine活动列表："/>
-            <mah:DropDownButton Grid.Column="1" Content="点击查看可选项" ItemsSource="{Binding RedMineActivities}">
+            <mah:DropDownButton Grid.Column="1" Margin="4 0" Content="点击查看可选项" ItemsSource="{Binding RedMineActivities}">
                 <mah:DropDownButton.ItemTemplate>
                     <DataTemplate DataType="{x:Type entity:RedMineActivity}">
                         <TextBlock Text="{Binding Name}"/>
@@ -60,7 +61,9 @@
         <ListView ItemsSource="{Binding RedMineIssues}" SelectionMode="Single" SelectedItem="{Binding SelectedRedMineIssue}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type entity:RedMineIssue}">
-                    <TextBlock Text="{Binding IssueName}"/>
+                    <Border CornerRadius="4" Padding="8 0" Margin="0 2">
+                        <TextBlock FontSize="24" Text="{Binding IssueName}"/>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

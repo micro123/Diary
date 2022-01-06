@@ -18,9 +18,11 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
     private readonly DiaryDbContext _dbContext;
     public bool CanCloseDialog() => true;
 
+    private bool _finishedImport = false;
     public void OnDialogClosed()
     {
-        RequestClose?.Invoke(new DialogResult(ButtonResult.OK));
+        var result = new DialogResult(_finishedImport ? ButtonResult.Yes : ButtonResult.No);
+        RequestClose?.Invoke(result);
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
@@ -31,6 +33,7 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
     public RedMineIssueImportViewModel(DiaryDbContext dbContext)
     {
         _dbContext = dbContext;
+        QueryResults.CollectionChanged += (sender, args) => { RaisePropertyChanged(nameof(QueryResults)); };
     }
 
     public string Title { get; } = "导入RedMine问题";
@@ -110,9 +113,10 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
                     new RedMineIssue()
                     {
                         IssueId = issue.IssueId,
-                        IssueName = $"{issue.ProjectName}-{issue.IssueName}"
+                        IssueName = $"#{issue.IssueId} - {issue.IssueName}（{issue.ProjectName}）"
                     }
                 );
+                _finishedImport = true;
             }
             catch (Exception)
             {
@@ -137,9 +141,10 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
                 new RedMineIssue()
                 {
                     IssueId = issue.IssueId,
-                    IssueName = $"{issue.ProjectName}-{issue.IssueName}"
+                    IssueName = $"#{issue.IssueId} - {issue.IssueName}（{issue.ProjectName}）"
                 }
             );
+            _finishedImport = true;
             _dbContext.SaveChangesAsync();
         }
         catch (Exception)

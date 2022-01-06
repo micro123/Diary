@@ -26,6 +26,8 @@ public class RedMineSettingViewModel : BindableBase
     {
         _dbContext = dbContext;
         _dialogService = dialogService;
+        RedMineIssues.CollectionChanged += (sender, args) => { RaisePropertyChanged(nameof(RedMineIssues)); };
+        RedMineActivities.CollectionChanged += (sender, args) => { RaisePropertyChanged(nameof(RedMineActivities)); };
 
         Task.Run(() =>
         {
@@ -68,10 +70,8 @@ public class RedMineSettingViewModel : BindableBase
     private void ShowImportDialog()
     {
         _dialogService.ShowDialog("RedMineIssueImport", result =>
-        {
-            if (result.Result == ButtonResult.OK)
-                LoadIssues();
-        });
+        {});
+        LoadIssues();
     }
 
     private ICommand? _deleteIssueCommand;
@@ -86,7 +86,7 @@ public class RedMineSettingViewModel : BindableBase
         {
             bool confirm = false;
             _dialogService.ShowDialog("MessageDialog", new DialogParameters("desc=确定要删除吗？此操作不可撤销！"),
-                result => { confirm = (result.Result == ButtonResult.Yes); });
+                result => { confirm = (result.Result == ButtonResult.Yes); }, "msg");
             if (confirm)
             {
                 _dbContext.RedMineIssues.Remove(_selectedRedMineIssue);
@@ -115,11 +115,11 @@ public class RedMineSettingViewModel : BindableBase
     private void ClearIssues()
     {
         bool confirmed = false;
-        _dialogService.ShowDialog("RedMineIssueImport", new DialogParameters("desc=确定要删除吗？此操作不可撤销！"), result =>
+        _dialogService.ShowDialog("MessageDialog", new DialogParameters("desc=确定要删除吗？此操作不可撤销！"), result =>
         {
-            if (result.Result == ButtonResult.OK)
+            if (result.Result == ButtonResult.Yes)
                 confirmed = true;
-        });
+        }, "msg");
         if (confirmed)
         {
             RedMineIssues.Clear();
