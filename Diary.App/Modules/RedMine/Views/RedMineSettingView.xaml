@@ -39,7 +39,7 @@
             </Button>
         </Grid>
         <Separator DockPanel.Dock="Top" Height="2" Background="{DynamicResource MahApps.Brushes.Gray4}"/>
-        <Grid DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="Top" Margin="0 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -48,13 +48,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" DockPanel.Dock="Top" Text="已导入的问题列表："/>
-            <Button Grid.Column="2" ToolTip="导入新问题" Command="{Binding ImportIssueCommand}">
+            <Button Grid.Column="2" Margin="4 0" ToolTip="导入新问题" Command="{Binding ImportIssueCommand}">
                 <iconPacks:PackIconMaterial Kind="Import" />
             </Button>
-            <Button Grid.Column="3" ToolTip="删除选中问题" Command="{Binding DeleteIssueCommand}">
+            <Button Grid.Column="3" Margin="4 0" ToolTip="删除选中问题" Command="{Binding DeleteIssueCommand}">
                 <iconPacks:PackIconUnicons Kind="Trash" />
             </Button>
-            <Button Grid.Column="4" ToolTip="清空所有问题" Command="{Binding ClearIssuesCommand}">
+            <Button Grid.Column="4" Margin="4 0" ToolTip="清空所有问题" Command="{Binding ClearIssuesCommand}">
                 <iconPacks:PackIconCodicons Kind="ClearAll" />
             </Button>
         </Grid>

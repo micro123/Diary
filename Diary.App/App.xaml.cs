@@ -29,7 +29,8 @@ namespace Diary.App
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IApplication>(() => new DiaryApp());
-            containerRegistry.RegisterSingleton<DiaryDbContext>(() => new DiaryDbContext());
+            // containerRegistry.RegisterSingleton<DiaryDbContext>(() => new DiaryDbContext());
+            containerRegistry.Register<IAppDbContext>(() => new DiaryDbContext());
             containerRegistry.RegisterForNavigation<EditorView>("Editor");
             containerRegistry.RegisterForNavigation<StatisticsView>("Statistics");
             containerRegistry.RegisterDialogWindow<DialogWindow>();
@@ -43,7 +44,7 @@ namespace Diary.App
             var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var appName = AppDomain.CurrentDomain.FriendlyName;
             Directory.CreateDirectory($@"{appDataDir}/{appName}");
-            Container.Resolve<DiaryDbContext>().Database.Migrate();
+            new DiaryDbContext().Database.Migrate();
 
             return Container.Resolve<ShellWindow>();
         }
