@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace Diary.App.Models;
 
@@ -21,7 +21,7 @@ public class AppSettings
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Data) obj);
+            return Equals((Data)obj);
         }
 
         public override int GetHashCode()
@@ -35,7 +35,7 @@ public class AppSettings
         public int RedMinePort { get; set; }
         public string RedMineUserApiKey { get; set; } = "";
 
-        #endregion
+        #endregion RedMine 设置
     }
 
     public static Data Load()
@@ -49,7 +49,7 @@ public class AppSettings
             _data = JsonConvert.DeserializeObject<Data>(jsonText);
         }
 
-        return _data ??= new Data() {RedMineHost = String.Empty, RedMinePort = 3000};
+        return _data ??= new Data() { RedMineHost = String.Empty, RedMinePort = 3000 };
     }
 
     public static void Store(Data newData)

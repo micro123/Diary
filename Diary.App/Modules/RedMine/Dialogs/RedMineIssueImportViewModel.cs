@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using Diary.App.Database;
+﻿using Diary.App.Database;
 using Diary.App.Utilities;
 using Diary.Core.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Diary.App.Modules.RedMine.Dialogs;
 
-public class RedMineIssueImportViewModel: BindableBase, IDialogAware
+public class RedMineIssueImportViewModel : BindableBase, IDialogAware
 {
     private readonly DiaryDbContext _dbContext;
+
     public bool CanCloseDialog() => true;
 
     private bool _finishedImport = false;
+
     public void OnDialogClosed()
     {
         var result = new DialogResult(_finishedImport ? ButtonResult.Yes : ButtonResult.No);
@@ -27,7 +29,6 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        
     }
 
     public RedMineIssueImportViewModel(DiaryDbContext dbContext)
@@ -38,9 +39,11 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
 
     public string Title { get; } = "导入RedMine问题";
     private int _totalCount;
+
     public event Action<IDialogResult>? RequestClose;
 
     #region Properties
+
     private ObservableCollection<RedMineUtility.DisplayIssue> _queryResults = new ObservableCollection<RedMineUtility.DisplayIssue>();
 
     public ObservableCollection<RedMineUtility.DisplayIssue> QueryResults
@@ -81,7 +84,7 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
         set => SetProperty(ref _selectedIssueIndex, value);
     }
 
-    #endregion
+    #endregion Properties
 
     #region Commands
 
@@ -181,7 +184,7 @@ public class RedMineIssueImportViewModel: BindableBase, IDialogAware
 
     private bool CanExecuteNextPageCommand() => Page >= 0 && Page < _totalCount / 10;
 
-    #endregion
+    #endregion Commands
 
     private void UpdateResultList(IEnumerable<RedMineUtility.DisplayIssue> data)
     {

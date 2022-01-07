@@ -10,6 +10,5 @@
                  WindowStartupLocation="CenterOwner"
                  Title="{Binding Title}" Height="240" Width="320" BorderThickness="1">
     <Grid>
-
     </Grid>
 </mah:MetroWindow>

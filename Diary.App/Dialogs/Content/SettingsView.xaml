@@ -1,21 +1,18 @@
 ﻿<UserControl x:Class="Diary.App.Dialogs.Content.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:local="clr-namespace:Diary.App.Dialogs.Content"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              FontSize="24"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <DockPanel LastChildFill="False" Margin="5">
         <TextBlock Text="RedMine 服务器配置:" DockPanel.Dock="Top" />
-        <Separator DockPanel.Dock="Top" Height="3"/>
+        <Separator DockPanel.Dock="Top" Height="3" />
         <Grid DockPanel.Dock="Top" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -30,11 +27,11 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Text="服务器IP或域名：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <TextBox Grid.Column="1" Grid.Row="0" Width="300" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     mah:TextBoxHelper.AutoWatermark="True" mah:TextBoxHelper.Watermark="例如：http://zymc"/>
+                     mah:TextBoxHelper.AutoWatermark="True" mah:TextBoxHelper.Watermark="例如：http://zymc" />
             <TextBlock Grid.Column="0" Grid.Row="1" Text="服务器端口号：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <mah:NumericUpDown Grid.Column="1" Grid.Row="1" Margin="0,5"  Value="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <mah:NumericUpDown Grid.Column="1" Grid.Row="1" Margin="0,5"  Value="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Column="0" Grid.Row="2" Text="RedMine API Key：" Margin="0,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding UserApiKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="位于我的账户页面查看"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="0,5" VerticalContentAlignment="Center" Text="{Binding UserApiKey,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="位于我的账户页面查看" />
         </Grid>
         <StackPanel Margin="15" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom">
             <Button Width="96" Content="还原之前的设置" Command="{Binding RestoreSettingsCommand}" Margin="4,0" />

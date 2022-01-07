@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Diary.App.Database;
+using Diary.Core.Entities;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using Diary.App.Database;
-using Diary.Core.Entities;
-using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
 
 namespace Diary.App.ViewModels;
 
-public class StatisticsViewModel: BindableBase
+public class StatisticsViewModel : BindableBase
 {
     private readonly DiaryDbContext _dbContext;
     private readonly IDialogService _dialogService;
@@ -58,7 +57,7 @@ public class StatisticsViewModel: BindableBase
         {
             try
             {
-                _dbContext.ItemTypes.Add(new ItemType() {Title = name});
+                _dbContext.ItemTypes.Add(new ItemType() { Title = name });
                 _dbContext.SaveChanges();
                 LoadItemTypes();
             }

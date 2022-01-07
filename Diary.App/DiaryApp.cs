@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using Diary.Core.Base;
 using System.Collections.Generic;
-using Diary.Core.Base;
 using System.Collections.ObjectModel;
 
 namespace Diary.App;
@@ -16,6 +15,4 @@ public class DiaryApp : IApplication
     }
 
     public ObservableCollection<AppMenuItem> Menus => MenuItems;
-
-
 }

@@ -1,21 +1,19 @@
-﻿using System;
+﻿using Diary.App.Database;
 using Diary.App.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Diary.App.Database;
 using Diary.Core.Entities;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Diary.App.Utilities;
 
 public class RedMineUtility
 {
-    
-
     internal class RedMineActivitiesRes
     {
         internal class TimeEntryActivity
@@ -32,7 +30,7 @@ public class RedMineUtility
             [JsonProperty("active")]
             public bool Active { get; set; }
         }
-        
+
         [JsonProperty("time_entry_activities")]
         public List<TimeEntryActivity> TimeEntryActivities { get; set; }
     }
@@ -229,7 +227,7 @@ public class RedMineUtility
             {
                 try
                 {
-                    dbContext.RedMineActivities.Add(new RedMineActivity() {Id = activity.Id, Name = activity.Name});
+                    dbContext.RedMineActivities.Add(new RedMineActivity() { Id = activity.Id, Name = activity.Name });
                 }
                 catch (InvalidOperationException exception)
                 {

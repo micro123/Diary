@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
+using System.Collections.Generic;
 
 namespace Diary.Core.Base
 {

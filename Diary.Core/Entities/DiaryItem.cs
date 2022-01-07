@@ -7,6 +7,7 @@ public class DiaryItem
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
     public DateTime Date { get; set; }
     public string Comment { get; set; }
     public string Note { get; set; }
@@ -14,5 +15,6 @@ public class DiaryItem
 
     // RedMine 相关
     public RedMineIssue? Issue { get; set; }
+
     public RedMineActivity? Activity { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
-using Diary.Core.Base;
+﻿using Diary.Core.Base;
 using Diary.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Diary.App.Database;
 

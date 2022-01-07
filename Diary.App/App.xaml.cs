@@ -1,10 +1,15 @@
 ﻿using Diary.App.Database;
+using Diary.App.Events;
+using Diary.App.Models;
 using Diary.App.Modules.RedMine;
 using Diary.App.Views;
 using Diary.App.Windows;
 using Diary.Core.Base;
 using Diary.Core.Constant;
+using MahApps.Metro.IconPacks;
+using Microsoft.EntityFrameworkCore;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -13,11 +18,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using Diary.App.Events;
-using Diary.App.Models;
-using MahApps.Metro.IconPacks;
-using Microsoft.EntityFrameworkCore;
-using Prism.Events;
 
 namespace Diary.App
 {
@@ -90,21 +90,19 @@ namespace Diary.App
                         Title = "编辑器",
                         Command = new DelegateCommand(() =>
                             regionMng.RequestNavigate(RegionNames.AppContentRegion, "Editor")),
-                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconMaterial(){Kind = PackIconMaterialKind.CommentEdit})
+                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconMaterial() { Kind = PackIconMaterialKind.CommentEdit })
                     };
                     AppMenuItem statistics = new AppMenuItem()
                     {
                         Title = "统计工具",
                         Command = new DelegateCommand(() =>
                             regionMng.RequestNavigate(RegionNames.AppContentRegion, "Statistics")),
-                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconFontisto(){Kind = PackIconFontistoKind.AreaChart})
+                        Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconFontisto() { Kind = PackIconFontistoKind.AreaChart })
                     };
 
                     app.RegisterMenu(new[] { editor, statistics });
                 }
             }
-
-
 
             // Static Modules
             Type moduleType = typeof(RedMineModule);
@@ -120,7 +118,7 @@ namespace Diary.App
             AppSettings.Store(AppSettings.GetConfig());
             base.OnExit(e);
         }
-        
+
         protected override void OnInitialized()
         {
             var appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

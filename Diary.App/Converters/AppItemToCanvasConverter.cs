@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Diary.Core.Base;
+using MahApps.Metro.IconPacks;
+using System;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Diary.Core.Base;
-using MahApps.Metro.IconPacks;
 
 namespace Diary.App.Converters;
 
-public class AppItemToCanvasConverter: IValueConverter
+public class AppItemToCanvasConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -17,7 +17,7 @@ public class AppItemToCanvasConverter: IValueConverter
             {
                 // Default Icon
                 Canvas canvas = new Canvas();
-                canvas.Children.Add(new PackIconModern(){ Kind = PackIconModernKind.App});
+                canvas.Children.Add(new PackIconModern() { Kind = PackIconModernKind.App });
                 return canvas;
             }
             else

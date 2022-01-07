@@ -1,13 +1,13 @@
-﻿using Diary.Core.Base;
+﻿using Diary.App.Database;
+using Diary.App.Events;
+using Diary.Core.Base;
+using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Diary.App.Database;
-using Diary.App.Events;
-using Prism.Commands;
-using Prism.Events;
-using Prism.Services.Dialogs;
 
 namespace Diary.App.ViewModels
 {
@@ -23,6 +23,7 @@ namespace Diary.App.ViewModels
         public ObservableCollection<AppMenuItem> Menus => _application.Menus;
 
         private AppMenuItem _selectedItem;
+
         public AppMenuItem SelectedItem
         {
             get => _selectedItem;

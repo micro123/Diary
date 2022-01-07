@@ -1,11 +1,8 @@
 ﻿using Diary.App.Models;
-using Diary.App.Utilities;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Diary.App.Dialogs.VM;
@@ -25,6 +22,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
     }
 
     public string Title => "设置";
+
     public event Action<IDialogResult>? RequestClose;
 
     private ICommand? _saveAndCloseCommand;
@@ -46,7 +44,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
 
     private ICommand? _restoreSettingsCommand;
     public ICommand RestoreSettingsCommand => _restoreSettingsCommand ??= new DelegateCommand(RestorePreviousSettings);
-    
+
     private void RestorePreviousSettings()
     {
         LoadData();
@@ -79,6 +77,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
     }
 
     private int _port;
+
     public int Port
     {
         get => _port;
@@ -86,6 +85,7 @@ public class SettingsViewModel : BindableBase, IDialogAware
     }
 
     private string _userApiKey = "";
+
     public string UserApiKey
     {
         get => _userApiKey;

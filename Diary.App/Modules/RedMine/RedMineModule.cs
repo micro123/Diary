@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Diary.App.Modules.RedMine.Dialogs;
 using Diary.App.Modules.RedMine.Views;
 using Diary.Core.Base;
 using Diary.Core.Constant;
+using MahApps.Metro.IconPacks;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Regions;
+using System;
 using System.Collections.Generic;
-using Diary.App.Modules.RedMine.Dialogs;
-using MahApps.Metro.IconPacks;
 
 namespace Diary.App.Modules.RedMine;
 
@@ -32,7 +32,7 @@ public class RedMineModule : DiaryModuleBase
         {
             Title = "RedMine 工具",
             Command = new DelegateCommand(ShowRedMineActivitiesImportDlg),
-            Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconSimpleIcons(){Kind = PackIconSimpleIconsKind.Redmine})
+            Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconSimpleIcons() { Kind = PackIconSimpleIconsKind.Redmine })
         };
         return new[] { appMenuRoot };
     }
@@ -46,6 +46,4 @@ public class RedMineModule : DiaryModuleBase
         regionManager
             .RequestNavigate(RegionNames.AppContentRegion, "RedMineSettings");
     }
-
-
 }

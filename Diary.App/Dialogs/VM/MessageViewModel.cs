@@ -1,23 +1,22 @@
-﻿using System;
-using System.Windows.Input;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using System;
+using System.Windows.Input;
 
 namespace Diary.App.Dialogs.VM;
 
-public class MessageViewModel: BindableBase, IDialogAware
+public class MessageViewModel : BindableBase, IDialogAware
 {
     public bool CanCloseDialog() => true;
 
     public void OnDialogClosed()
     {
-        
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        PositiveButtonCommand  = new DelegateCommand(PositiveButtonClicked);
+        PositiveButtonCommand = new DelegateCommand(PositiveButtonClicked);
         NegativeButtonCommand = new DelegateCommand(NegativeButtonClicked);
 
         if (parameters.ContainsKey("title"))
@@ -80,9 +79,9 @@ public class MessageViewModel: BindableBase, IDialogAware
         RequestClose?.Invoke(new DialogResult(ButtonResult.Yes));
     }
 
-    #endregion
-
+    #endregion Buttons
 
     public string Title { get; set; } = "提示信息";
+
     public event Action<IDialogResult>? RequestClose;
 }

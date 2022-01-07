@@ -1,19 +1,15 @@
-﻿using System;
+﻿using Diary.App.Database;
+using Diary.App.Utilities;
+using Diary.Core.Entities;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Diary.App.Database;
-using Diary.App.Events;
-using Diary.App.Utilities;
-using Diary.Core.Entities;
-using Microsoft.EntityFrameworkCore;
-using Prism.Commands;
-using Prism.Events;
-using Prism.Mvvm;
-using Prism.Regions;
-using Prism.Services.Dialogs;
 
 namespace Diary.App.Modules.RedMine.ViewModels;
 
@@ -70,7 +66,7 @@ public class RedMineSettingViewModel : BindableBase
     private void ShowImportDialog()
     {
         _dialogService.ShowDialog("RedMineIssueImport", result =>
-        {});
+        { });
         LoadIssues();
     }
 
@@ -150,8 +146,7 @@ public class RedMineSettingViewModel : BindableBase
 
     private bool CanExecuteSync() => !IsSyncing;
 
-    #endregion
-
+    #endregion Commands
 
     private RedMineIssue? _selectedRedMineIssue;
 
@@ -183,5 +178,5 @@ public class RedMineSettingViewModel : BindableBase
         }));
     }
 
-    #endregion
+    #endregion DataLoad
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,7 +12,7 @@ public struct AppMenuItem
 
     public Canvas? Icon { get; set; }
 
-    public static Canvas CreateCanvasFromPackIcon<T>(T icon) where T:UIElement
+    public static Canvas CreateCanvasFromPackIcon<T>(T icon) where T : UIElement
     {
         Canvas canvas = new Canvas();
         canvas.Children.Add(icon);

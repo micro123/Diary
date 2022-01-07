@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using Diary.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
-using Diary.Core.Entities;
 
 namespace Diary.App.Converters;
 
-public class ActivityListToTextConverter: IValueConverter
+public class ActivityListToTextConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
