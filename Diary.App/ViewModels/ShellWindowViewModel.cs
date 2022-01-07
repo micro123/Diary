@@ -34,6 +34,24 @@ namespace Diary.App.ViewModels
             }
         }
 
+        private bool _appPanelIsOpen = true;
+
+        public bool AppPanelIsOpen
+        {
+            get => _appPanelIsOpen;
+            set => SetProperty(ref _appPanelIsOpen, value);
+        }
+
+        private ICommand? _toggleAppPanelOpenCommand;
+
+        public ICommand? ToggleAppPanelOpenCommand =>
+            _toggleAppPanelOpenCommand ??= new DelegateCommand(ExecuteToggleAppPanelOpenCommand);
+
+        private void ExecuteToggleAppPanelOpenCommand()
+        {
+            AppPanelIsOpen = !AppPanelIsOpen;
+        }
+
         public ShellWindowViewModel(IApplication application,
             DiaryDbContext context,
             IDialogService dialogService,

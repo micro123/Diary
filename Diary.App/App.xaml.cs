@@ -87,7 +87,7 @@ namespace Diary.App
                 {
                     AppMenuItem editor = new AppMenuItem()
                     {
-                        Title = "编辑器",
+                        Title = "笔记本",
                         Command = new DelegateCommand(() =>
                             regionMng.RequestNavigate(RegionNames.AppContentRegion, "Editor")),
                         Icon = AppMenuItem.CreateCanvasFromPackIcon(new PackIconMaterial() { Kind = PackIconMaterialKind.CommentEdit })

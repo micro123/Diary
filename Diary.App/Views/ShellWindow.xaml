@@ -44,7 +44,7 @@
     </mah:MetroWindow.IconTemplate>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button ToolTip="关于此软件">
+            <Button ToolTip="关于此软件" Command="{Binding ShowAboutCommand}">
                 <iconPacks:PackIconUnicons Kind="QuestionCircle" />
             </Button>
             <Button ToolTip="设置" Command="{Binding ShowSettingsCommand}">
@@ -59,87 +59,132 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Accent4}">
-            <ListView ItemsSource="{Binding Menus}"
-                      SelectedItem="{Binding SelectedItem}"
-                      SelectionMode="Single"
-                      BorderThickness="0"
-                      Width="250">
-                <ListView.Resources>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="SnapsToDevicePixels" Value="True" />
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                        <Setter Property="Padding" Value="0" />
-                    </Style>
-                </ListView.Resources>
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type core:AppMenuItem}">
-                        <Grid Height="48">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Style>
-                                <Style TargetType="{x:Type Grid}">
-                                    <Setter Property="ToolTip" Value="{Binding Title}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding AppPanelIsOpen}" Value="True">
+                            <Setter Property="Width" Value="250"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AppPanelIsOpen}" Value="False">
+                            <Setter Property="Width" Value="48"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <mah:SplitView DisplayMode="CompactOverlay" IsPaneOpen="{Binding AppPanelIsOpen}" CompactPaneLength="48"
+                           OpenPaneLength="250">
+                <mah:SplitView.Pane>
+                    <DockPanel LastChildFill="True" HorizontalAlignment="Left">
+                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Top" Command="{Binding ToggleAppPanelOpenCommand}">
+                            <iconPacks:PackIconCoolicons Width="24" Height="24" Kind="Hamburger" />
+                        </Button>
+                        <ListView ItemsSource="{Binding Menus}"
+                                  SelectedItem="{Binding SelectedItem}"
+                                  SelectionMode="Single"
+                                  BorderThickness="0">
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                    <Setter Property="Padding" Value="0" />
                                 </Style>
-                            </Grid.Style>
-                            <Rectangle Grid.Column="0" Width="4" Height="48" HorizontalAlignment="Left">
-                                <Rectangle.Style>
-                                    <Style TargetType="{x:Type Rectangle}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
-                            <Rectangle Grid.Column="0" Width="24" Height="24" Margin="0 0 -2 0">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Uniform" Visual="{Binding Converter={StaticResource AppItemToCanvasConverter}}"></VisualBrush>
-                                </Rectangle.OpacityMask>
-                                <Rectangle.Style>
-                                    <Style TargetType="{x:Type Rectangle}">
-                                        <Setter Property="Fill" Value="{DynamicResource MahApps.Brushes.Gray1}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Fill" Value="{DynamicResource MahApps.Brushes.Gray3}" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
-                            <TextBlock Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" Margin="2,0,0,0">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource HeaderTextBlock}">
-                                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray1}" />
-                                        <Setter Property="Margin" Value="0" />
-                                        <Setter Property="VerticalAlignment" Value="Center" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsMouseOver,RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray3}" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=IsSelected,RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                            </ListView.Resources>
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type core:AppMenuItem}">
+                                    <Grid Height="48">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="48" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Style>
+                                            <Style TargetType="{x:Type Grid}">
+                                                <Setter Property="ToolTip" Value="{Binding Title}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                        Value="True">
+                                                        <Setter Property="Background"
+                                                                Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Rectangle Grid.Column="0" Width="4" Height="48" HorizontalAlignment="Left">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                            Value="True">
+                                                            <Setter Property="Fill"
+                                                                    Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <Rectangle Grid.Column="0" Width="24" Height="24" Margin="0 0 -2 0">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Stretch="Uniform"
+                                                             Visual="{Binding Converter={StaticResource AppItemToCanvasConverter}}">
+                                                </VisualBrush>
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Fill"
+                                                            Value="{DynamicResource MahApps.Brushes.Gray1}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                            Value="True">
+                                                            <Setter Property="Fill"
+                                                                    Value="{DynamicResource MahApps.Brushes.Gray3}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                            Value="True">
+                                                            <Setter Property="Fill"
+                                                                    Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <TextBlock Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center"
+                                                   Margin="2,0,0,0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}"
+                                                       BasedOn="{StaticResource HeaderTextBlock}">
+                                                    <Setter Property="Foreground"
+                                                            Value="{DynamicResource MahApps.Brushes.Gray1}" />
+                                                    <Setter Property="Margin" Value="0" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding Path=IsMouseOver,RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                            Value="True">
+                                                            <Setter Property="Foreground"
+                                                                    Value="{DynamicResource MahApps.Brushes.Gray3}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding Path=IsSelected,RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                            Value="True">
+                                                            <Setter Property="Foreground"
+                                                                    Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </DockPanel>
+                </mah:SplitView.Pane>
+            </mah:SplitView>
         </Border>
         <ContentControl Grid.Column="1"
                         prism:RegionManager.RegionName="{Binding Source={x:Static constants:RegionNames.AppContentRegion}}" />
