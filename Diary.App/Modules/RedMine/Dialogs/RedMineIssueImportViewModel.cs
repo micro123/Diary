@@ -10,12 +10,14 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Diary.Core.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Diary.App.Modules.RedMine.Dialogs;
 
 public class RedMineIssueImportViewModel : BindableBase, IDialogAware
 {
-    private readonly DiaryDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
 
     public bool CanCloseDialog() => true;
 
@@ -31,7 +33,7 @@ public class RedMineIssueImportViewModel : BindableBase, IDialogAware
     {
     }
 
-    public RedMineIssueImportViewModel(DiaryDbContext dbContext)
+    public RedMineIssueImportViewModel(IAppDbContext dbContext)
     {
         _dbContext = dbContext;
         QueryResults.CollectionChanged += (sender, args) => { RaisePropertyChanged(nameof(QueryResults)); };
@@ -126,7 +128,7 @@ public class RedMineIssueImportViewModel : BindableBase, IDialogAware
                 // duplicated, do nothing
             }
 
-            _dbContext.SaveChangesAsync();
+            (_dbContext as DbContext)!.SaveChangesAsync();
         }
     }
 
@@ -148,7 +150,7 @@ public class RedMineIssueImportViewModel : BindableBase, IDialogAware
                 }
             );
             _finishedImport = true;
-            _dbContext.SaveChangesAsync();
+            (_dbContext as DbContext)!.SaveChangesAsync();
         }
         catch (Exception)
         {

@@ -10,15 +10,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Diary.Core.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Diary.App.ViewModels;
 
 public class StatisticsViewModel : BindableBase
 {
-    private readonly DiaryDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
     private readonly IDialogService _dialogService;
 
-    public StatisticsViewModel(DiaryDbContext dbContext, IDialogService dialogService)
+    public StatisticsViewModel(IAppDbContext dbContext, IDialogService dialogService)
     {
         _dbContext = dbContext;
         _dialogService = dialogService;
@@ -58,7 +60,7 @@ public class StatisticsViewModel : BindableBase
             try
             {
                 _dbContext.ItemTypes.Add(new ItemType() { Title = name });
-                _dbContext.SaveChanges();
+                (_dbContext as DbContext)!.SaveChanges();
                 LoadItemTypes();
             }
             catch (Exception)
@@ -82,7 +84,7 @@ public class StatisticsViewModel : BindableBase
             try
             {
                 _dbContext.ItemTypes.Remove(itemType);
-                _dbContext.SaveChanges();
+                (_dbContext as DbContext)!.SaveChanges();
                 LoadItemTypes();
             }
             catch (Exception)

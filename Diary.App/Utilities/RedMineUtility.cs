@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Diary.Core.Base;
 
 namespace Diary.App.Utilities;
 
@@ -205,7 +206,7 @@ public class RedMineUtility
         return new DisplayIssue[] { };
     }
 
-    public static async void SyncActivities(DiaryDbContext dbContext)
+    public static async void SyncActivities(IAppDbContext dbContext)
     {
         var cfg = AppSettings.GetConfig();
         if (string.IsNullOrEmpty(cfg.RedMineUserApiKey))
@@ -235,7 +236,8 @@ public class RedMineUtility
                     dbContext.RedMineActivities.First(x => x.Id == activity.Id).Name = activity.Name;
                 }
             }
-            await dbContext.SaveChangesAsync();
+
+            await (dbContext as DiaryDbContext)!.SaveChangesAsync();
         }
     }
 }

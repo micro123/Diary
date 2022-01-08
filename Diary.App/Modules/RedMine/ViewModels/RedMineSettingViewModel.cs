@@ -10,15 +10,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Diary.Core.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Diary.App.Modules.RedMine.ViewModels;
 
 public class RedMineSettingViewModel : BindableBase
 {
-    private readonly DiaryDbContext _dbContext;
+    private readonly IAppDbContext _dbContext;
     private readonly IDialogService _dialogService;
 
-    public RedMineSettingViewModel(DiaryDbContext dbContext, IDialogService dialogService)
+    public RedMineSettingViewModel(IAppDbContext dbContext, IDialogService dialogService)
     {
         _dbContext = dbContext;
         _dialogService = dialogService;
@@ -89,7 +91,7 @@ public class RedMineSettingViewModel : BindableBase
                 SelectedRedMineIssue = null;
                 Task.Run(async () =>
                 {
-                    await _dbContext.SaveChangesAsync();
+                    await (_dbContext as DbContext)!.SaveChangesAsync();
                     LoadIssues();
                 });
             }
@@ -122,7 +124,7 @@ public class RedMineSettingViewModel : BindableBase
             _dbContext.RedMineIssues.RemoveRange(_dbContext.RedMineIssues);
             Task.Run(async () =>
             {
-                await _dbContext.SaveChangesAsync();
+                await (_dbContext as DbContext)!.SaveChangesAsync();
                 LoadIssues();
             });
         }
